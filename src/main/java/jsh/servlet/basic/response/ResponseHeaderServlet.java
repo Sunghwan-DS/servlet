@@ -2,6 +2,7 @@ package jsh.servlet.basic.response;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -24,6 +25,7 @@ public class ResponseHeaderServlet extends HttpServlet {
 
         //[Header 편의 메서드]
         content(response);
+        cookie(response);
 
         PrintWriter writer = response.getWriter();
         writer.println("ok");
@@ -36,5 +38,13 @@ public class ResponseHeaderServlet extends HttpServlet {
         response.setContentType("text/plain");
         response.setCharacterEncoding("utf-8");
         //response.setContentLength(2); //(생략시 자동 생성)
+    }
+
+    private void cookie(HttpServletResponse response) {
+        //Set-Cookie: myCookie=good; Max-Age=600;
+        // response.setHeader("Set-Cookie", "myCookie=good; Max-Age=600");
+        Cookie cookie = new Cookie("myCookie", "good");
+        cookie.setMaxAge(600); //600초
+        response.addCookie(cookie);
     }
 }
