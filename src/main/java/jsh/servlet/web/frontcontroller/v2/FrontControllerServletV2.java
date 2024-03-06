@@ -5,6 +5,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jsh.servlet.web.frontcontroller.MyView;
 import jsh.servlet.web.frontcontroller.v2.controllerV2.MemberFormControllerV2;
 import jsh.servlet.web.frontcontroller.v2.controllerV2.MemberListControllerV2;
 import jsh.servlet.web.frontcontroller.v2.controllerV2.MemberSaveControllerV2;
@@ -36,6 +37,8 @@ public class FrontControllerServletV2 extends HttpServlet {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
             return;
         }
-        controller.process(request, response);
+
+        MyView view = controller.process(request, response);
+        view.render(request, response);
     }
 }
